@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>no title</title>
+	<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.js"></script>
+</head>
+<body>
+	<label for="weather">查询天气：</label>
+	<input type="text" placeholder="请输入要查询的城市" id="weather">
+	<input type="button" value="查询" id="query">
+	<p class="wearther-mesg"></p>
+<script>
+	$(document).ready(function(){
+		$('#query').on('click',function(){
+			$.ajax({
+				type: "GET",
+				url: "https://www.sojson.com/open/api/weather/json.shtml?city="+$('#weather').val(),
+				dataType: "jsonp",
+				success: function(data){
+					if(data.message == "Success !"){
+						console.log(data.data.forecast);
+					}else{
+						console.log(data.message);
+					}
+				}
+			})
+		})
+	})
+</script>
+</body>
+</html>

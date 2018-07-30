@@ -496,6 +496,7 @@ select concat(class,'班') as 班级, concat(count(*),'人') as 人数 from user
     + create table 新建表 like 要复制的表名称
 2. mysql 复制表内容
     + insert into 新建表 select * from 要复制的表名称
+
 ### mysql索引
 1. 查看索引
     show index from user\G
@@ -507,8 +508,56 @@ select concat(class,'班') as 班级, concat(count(*),'人') as 人数 from user
     drop index u_username on user;  
 ### mysql视图
 1. 创建视图
-    + create view v_ti as select * from t1 where id > 4 and id < 11;
+    + create view userclass as select user.username,user,age,class,name from user,class where user.class_id=class.id;
 2. 查看视图
     + show tables;
-3. 删除视图
-    + drop view v_t1;
+3. 查看视图数据
+    + select * from userclass
+4. 删除视图
+    + drop view userclass;
+5. mysql中查看表中未来的自增数
+    + show create table user;
+> 视图的特性：当表中数据发生变化时视图数据也会随着发生相应的变化
+
+### mysql字符串函数
+* concat(string2 [,...]) 链接字符串
+* lcase() 转小写
+* ucase() 转大写
+* lenght() 长度
+* ltrim() 去除左边长度
+* rtrim() 去除右边长度
+* repeat() 重复
+    + 例子：select concat(repeat('-',20),'linux');
+* replace() 替换
+    + 例子：select repace('linux and java','linux','php');
+* substring() 截取（索引从1开始）
+    + 例子：select substring('/user/local/src',5,5);
+* space() 空格 
+    + 例子：select concat('linux',space(20),'php');  
+
+### mysql数学函数
+1. bin(); 十进制转二进制
+    + 例子：select bin(10);
+2. ceiling(); 向上去一个整数
+    + 例子：select ceiling(10.5);
+3. floor(); 向下取整
+4. max(); 取最大值
+5. min(); 取最小值
+6. sqrt(); 平方
+7. rand(); 求随机数
+
+### mysql时间函数
+* curdate(); 当前日期
+* curtime(); 当前时间
+* now(); 当前日期和时间
+* unix_timestamp(data) 当前时间戳
+* from_unixtime() 时间戳转日期
+* week(date) 一年中的第几周
+* year(date) 日期中的年份
+* datediff(expr,expr2) 日期的差值(天)
+> 重排auto_increment  
+    1. delete  
+        + delete from user;  
+        + alter table user auto_increment = 1;  
+    2. truncate  
+        + truncate user;  

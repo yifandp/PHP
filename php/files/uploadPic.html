@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .pic img{
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" id="file" multiple>
+    <div class="pic">
+    </div>
+
+    <script>
+        var oFile = document.querySelector('#file');
+        oFile.onchange = function(){
+            var files = this.files;
+            
+            for(var i = 0; i < files.length; i++){
+                var imgArr = files[i];
+
+                var reader = new FileReader();
+                reader.readAsDataURL(files[i]);
+                reader.onload = function(e){
+                    var img = new Image();
+                    img.src = e.target.result;
+                    document.querySelector('.pic').appendChild(img);
+                }             
+            }
+
+        }
+    </script>
+</body>
+</html>
